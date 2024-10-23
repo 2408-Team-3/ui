@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ErrorDetails from "./ErrorDetails";
+import { formatTimestamp } from "../utils";
 
 export default function ErrorHeading(props) {
   const [showDetail, setShowDetails] = useState(false);
@@ -17,7 +18,8 @@ export default function ErrorHeading(props) {
       }}
     >
       <h3>
-        {props.created_at} | {props.reason ? props.reason : props.message}
+        {formatTimestamp(props.created_at)} |{" "}
+        {props.reason ? props.reason : props.message}
       </h3>
       {showDetail && <ErrorDetails {...props} />}
     </div>

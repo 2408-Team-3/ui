@@ -21,7 +21,7 @@ export default function ErrorDetails(props) {
         <li>
           <strong>Message:</strong> {props.message}
         </li>
-        {props.status_code && ( // only for errors with a status code...
+        {/* {props.status_code && ( // only for errors with a status code...
           <div>
             <li>
               <strong>Status code:</strong> {props.status_code}
@@ -36,7 +36,7 @@ export default function ErrorDetails(props) {
               <strong>Path:</strong> {props.url}
             </li>
           </div>
-        )}
+        )} */}
         <li>
           <strong>Line number:</strong> {props.line_number}
         </li>
@@ -45,6 +45,9 @@ export default function ErrorDetails(props) {
         </li>
         <li>
           <strong>Stack trace:</strong> {props.stack_trace || "No info"}
+        </li>
+        <li>
+          <strong>Handled:</strong> {props.handled || "No info"}
         </li>
       </ul>
     </div>
