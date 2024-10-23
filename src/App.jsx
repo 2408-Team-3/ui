@@ -2,83 +2,49 @@ import React, { useState, useEffect } from "react";
 import ErrorHeading from "./components/ErrorHeading";
 import "./App.css";
 
-// import { getData } from "./services/data";
+import { getData } from "./services/data";
 
-const dummyErrors = [
-  {
-    id: 1,
-    name: "ReferenceError",
-    message: "Variable user is referenced but never declared",
-    created_at: "10-21-2024 4:33p.m.",
-    reason: undefined,
-    status_code: undefined,
-    status_message: undefined,
-    method: undefined,
-    url: undefined,
-    line_number: 341,
-    col_number: 63,
-    stack_trace: "This will be a stack trace...",
-  },
-  {
-    id: 2,
-    name: "Bad request",
-    message: "Bad request",
-    created_at: "10-21-2024 4:45p.m.",
-    reason: undefined,
-    status_code: 400,
-    status_message: "Bad request",
-    method: "GET",
-    url: "/users",
-    line_number: 223,
-    col_number: 14,
-    stack_trace: "This will be a stack trace...",
-  },
-  {
-    id: 3,
-    name: undefined,
-    message: undefined,
-    created_at: "10-21-2024 4:55p.m.",
-    reason: "Promise rejected and not handled",
-    status_code: undefined,
-    status_message: undefined,
-    method: undefined,
-    url: undefined,
-    line_number: 23,
-    col_number: 88,
-    stack_trace: "This will be a stack trace...",
-  },
-];
+// const dummyErrors = [
+//   {
+//     error_id: 1,
+//     name: "ReferenceError",
+//     message:
+//       "ReferenceError: cannot access variable 'user' before initialization",
+//     created_at: "2011-10-05T14:48:00.000Z",
+//     line_number: 45,
+//     col_number: 23,
+//     project_id: 234234,
+//     stack_trace: "This will be a stack trace...",
+//     handled: false,
+//   },
+// ];
+
 const App = () => {
-  const [errors, setErrors] = useState(dummyErrors);
+  const [errors, setErrors] = useState([]);
 
-  // uncomment this when backed is functional...
-
-  // useEffect(() => {
-  //   try {
-  //     async function fetchData() {
-  //       const data = await getData();
-  //       setProjects(data);
-  //     }
-  //     fetchData();
-  //   } catch (e) {
-  //     console.log(e.message);
-  //   }
-  // }, []);
+  useEffect(() => {
+    try {
+      async function fetchData() {
+        const data = await getData();
+        setErrors(data);
+      }
+      fetchData();
+    } catch (e) {
+      console.log(e.message);
+    }
+  }, []);
 
   const errorHeadings = errors.map((error) => (
     <ErrorHeading
-      id={error.id}
+      key={error.error_id}
       name={error.name}
       message={error.message}
       created_at={error.created_at}
-      reason={error.reason}
-      status_code={error.status_code}
-      status_message={error.status_message}
-      method={error.method}
-      url={error.url}
+      project_id={error.project_id}
       line_number={error.line_number}
       col_number={error.col_number}
       stack_trace={error.stack_trace}
+      handled={error.handled}
     />
   ));
 
